@@ -10,11 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@radix-ui/react-dialog": "^1.1.14",
-=======
     "@ckeditor/ckeditor5-react": "^11.0.0",
->>>>>>> 4027ced6a9912b991b8cefd5110a21fb85f9caac
+    "@radix-ui/react-dialog": "^1.1.14",
     "@tailwindcss/vite": "^4.1.11",
     "@tiptap/extension-image": "^2.26.1",
     "@tiptap/extension-link": "^2.26.1",
@@ -23,9 +20,11 @@
     "@tiptap/react": "^2.26.1",
     "@tiptap/starter-kit": "^2.26.1",
     "@tiptap/suggestion": "^2.26.1",
+    "framer-motion": "^12.23.3",
     "lucide-react": "^0.525.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-icons": "^5.5.0",
     "react-router-dom": "^7.6.3",
     "tailwindcss": "^4.1.11",
     "tippy.js": "^6.3.7",
