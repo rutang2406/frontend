@@ -10,11 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@radix-ui/react-dialog": "^1.1.14",
-=======
     "@ckeditor/ckeditor5-react": "^11.0.0",
->>>>>>> 4027ced6a9912b991b8cefd5110a21fb85f9caac
     "@tailwindcss/vite": "^4.1.11",
     "@tiptap/extension-image": "^2.26.1",
     "@tiptap/extension-link": "^2.26.1",

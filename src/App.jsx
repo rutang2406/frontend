@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import HomePage from './pages/HomePage'
 import AskQuestionPage from './pages/AskQuestionPage'
 import QuestionDetailPage from './pages/QuestionDetailPage'
+import ViewQuestionPage from './context/ViewQuestionPage.jsx'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/ask" element={<AskQuestionPage />} />
               <Route path="/question/:id" element={<QuestionDetailPage />} />
+              <Route path="/home" element={<ViewQuestionPage />} />
             </Routes>
           </main>
         </div>
