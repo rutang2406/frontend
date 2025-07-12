@@ -1,6 +1,7 @@
 import React from 'react'
 import { ChevronUp, ChevronDown, Check, User, Clock } from 'lucide-react'
 import { useQA } from '../context/QAContext'
+import RichTextEditor from './RichTextEditor'
 
 const AnswerCard = ({ answer, questionId, isQuestionOwner = false }) => {
   const { voteAnswer, acceptAnswer } = useQA()
@@ -71,11 +72,13 @@ const AnswerCard = ({ answer, questionId, isQuestionOwner = false }) => {
             </div>
           )}
 
-          <div 
+          {/* <div 
             className="prose max-w-none mb-4"
             dangerouslySetInnerHTML={{ __html: answer.content }}
-          />
+          /> */}
+          <RichTextEditor data={answer.content} className = "w-screen">
 
+          </RichTextEditor>
           <div className="flex items-center space-x-4 text-sm text-gray-500">
             <div className="flex items-center space-x-1">
               <User className="h-4 w-4" />

@@ -1,4 +1,3 @@
-import React from 'react'
 import { useQA } from '../context/QAContext'
 import QuestionCard from '../components/QuestionCard'
 import { Filter } from 'lucide-react'
