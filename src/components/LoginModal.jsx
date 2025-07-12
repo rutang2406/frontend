@@ -3,6 +3,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Eye, EyeOff, UserCheck, Lock, Mail, X } from 'lucide-react';
 import { backendurl } from '../App.jsx';
+import { useNavigate } from 'react-router-dom'
+
 
 // Dialog Components
 function Dialog({ open, children }) {
@@ -55,6 +57,7 @@ function LoginModal({ isOpen, onClose, onSignUpClick }) {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate()
 
   const axiosAuth = axios.create({
     baseURL: API_BASE_URL,
@@ -141,6 +144,7 @@ function LoginModal({ isOpen, onClose, onSignUpClick }) {
     onClose();
     setEmail('');
     setPassword('');
+    navigate('/home'); // Redirect to home page after login
   } catch (err) {
     console.error(err);
     setError(err?.response?.data?.description || 'Login failed. Please try again.');

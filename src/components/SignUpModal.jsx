@@ -187,7 +187,7 @@ const SignUpModal = ({ isOpen, onClose, onLoginClick, onSignupSuccess }) => {
       setPassword('')
       setError('')
       setSuccess('')
-      navigate('/')
+      navigate('/home')
 
     } catch (err) {
       console.error('Signup/Login error:', err)

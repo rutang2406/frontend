@@ -160,7 +160,7 @@ const HomePage = () => {
                     Ask Your First Question
                   </Button>
                 </Link>
-                <Link to="/explore">
+                <Link to="/home">
                   <Button variant="outline" size="lg" className="text-lg px-8 py-4 h-auto border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300">
                     Explore Questions
                   </Button>
