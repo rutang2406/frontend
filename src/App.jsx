@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage'
 import AskQuestionPage from './pages/AskQuestionPage'
 import QuestionDetailPage from './pages/QuestionDetailPage'
 import ProfilePage from './pages/ProfilePage'
+import ViewQuestionPage from './context/ViewQuestionPage'
 
 
 export const backendurl = import.meta.env.VITE_BACKEND_URL;
@@ -21,6 +22,7 @@ function App() {
               <Route path="/ask" element={<AskQuestionPage />} />
               <Route path="/question/:id" element={<QuestionDetailPage />} />
               <Route path="/Profile" element={<ProfilePage />} />
+              <Route path="/home" element={<ViewQuestionPage />} />
             </Routes>
           </main>
         </div>

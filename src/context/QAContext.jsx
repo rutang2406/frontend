@@ -193,3 +193,4 @@ export const QAProvider = ({ children }) => {
     </QAContext.Provider>
   )
 }
+export default QAContext;
