@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from './DialogConten
 import { Button } from './Button'
 import { Input } from './Input'
 import { Label } from './Label'
-import { Eye, EyeOff, UserPlus, Lock, Mail, User } from 'lucide-react'
+import { Eye, EyeOff, UserPlus, Lock, Mail, User,X } from 'lucide-react'
 
 const SignUpModal = ({ isOpen, onClose, onLoginClick }) => {
   const [username, setUsername] = useState('')
@@ -40,9 +40,18 @@ const SignUpModal = ({ isOpen, onClose, onLoginClick }) => {
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen}>
       <DialogContent className="sm:max-w-md">
+         <button
+          type="button"
+          aria-label="Close"
+          onClick={onClose}
+          className="absolute right-4 top-4 text-gray-400 hover:text-gray-600 transition-colors"
+        >
+          <X className="w-5 h-5" />
+        </button>
         <DialogHeader>
+
           <DialogTitle className="text-center text-xl flex items-center justify-center gap-2">
             <UserPlus className="h-6 w-6 text-blue-600" />
             <span>Create Account</span>

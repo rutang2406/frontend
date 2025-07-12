@@ -72,10 +72,6 @@ const AnswerCard = ({ answer, questionId, isQuestionOwner = false }) => {
             </div>
           )}
 
-          {/* <div 
-            className="prose max-w-none mb-4"
-            dangerouslySetInnerHTML={{ __html: answer.content }}
-          /> */}
           <RichTextEditor data={answer.content} className = "w-screen">
 
           </RichTextEditor>
