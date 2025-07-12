@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { useQA } from '../context/QAContext';
-import AnswerCard from '../components/AnswerCard';
-import RichTextEditor from '../components/RichTextEditor';
-import { ArrowLeft, User, Clock, MessageSquare } from 'lucide-react';
+import React, { useState } from 'react'
+import { useParams, Link } from 'react-router-dom'
+import { useQA } from '../context/QAContext'
+import AnswerCard from '../components/AnswerCard'
+import RichTextEditor from '../components/RichTextEditor'
+import { ArrowLeft, User, Clock, MessageSquare } from 'lucide-react'
+import { useUser } from '../context/UserContext'
 
 const QuestionDetailPage = () => {
-  const { id } = useParams();
-  const { getQuestionById, addAnswer } = useQA();
-  const [answerContent, setAnswerContent] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { id } = useParams()
+  const { getQuestionById, addAnswer } = useQA()
+  const [answerContent, setAnswerContent] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const question = getQuestionById(id);
+  const question = getQuestionById(id)
+
+ const { user } = useUser()
+const isQuestionOwner = question.author === user.username
 
   if (!question) {
     return (
@@ -21,38 +25,41 @@ const QuestionDetailPage = () => {
           ← Back to questions
         </Link>
       </div>
-    );
+    )
   }
 
   const formatTime = (dateString) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffInHours = Math.floor((now - date) / (1000 * 60 * 60));
-    if (diffInHours < 1) return 'Just now';
-    if (diffInHours < 24) return `${diffInHours}h ago`;
-    return `${Math.floor(diffInHours / 24)}d ago`;
-  };
+    const date = new Date(dateString)
+    const now = new Date()
+    const diffInHours = Math.floor((now - date) / (1000 * 60 * 60))
+    if (diffInHours < 1) return 'Just now'
+    if (diffInHours < 24) return `${diffInHours}h ago`
+    return `${Math.floor(diffInHours / 24)}d ago`
+  }
 
   const handleSubmitAnswer = async (e) => {
-    e.preventDefault();
-    if (!answerContent.trim()) return;
+    e.preventDefault()
+    if (!answerContent.trim()) return
 
-    setIsSubmitting(true);
+    setIsSubmitting(true)
 
     try {
-      addAnswer(question.id, answerContent);
-      setAnswerContent('');
-    } catch (error) {
-      console.error('Error submitting answer:', error);
+      addAnswer(question.id, answerContent)
+      setAnswerContent('')
+    } catch (err) {
+      console.error('Error submitting answer:', err)
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false)
     }
-  };
+  }
 
-  const isQuestionOwner = question.author === 'current_user'; // Replace with actual auth check
+  // 🟩 Separate accepted and other answers
+  const acceptedAnswer = question.answers.find(a => a.isAccepted)
+  const otherAnswers = question.answers.filter(a => !a.isAccepted)
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto px-4 py-8">
+      {/* Back */}
       <div className="mb-6">
         <Link to="/" className="inline-flex items-center text-blue-600 hover:text-blue-800 mb-4">
           <ArrowLeft className="h-4 w-4 mr-1" />
@@ -60,16 +67,13 @@ const QuestionDetailPage = () => {
         </Link>
       </div>
 
-      {/* Question */}
+      {/* Question Box */}
       <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">{question.title}</h1>
 
         <div className="flex flex-wrap gap-2 mb-4">
-          {question.tags.map((tag) => (
-            <span
-              key={tag}
-              className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm"
-            >
+          {question.tags.map(tag => (
+            <span key={tag} className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-sm">
               {tag}
             </span>
           ))}
@@ -97,13 +101,22 @@ const QuestionDetailPage = () => {
       </div>
 
       {/* Answers */}
-      <div className="mb-8">
+      <div className="mb-10">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">
           {question.answers.length} {question.answers.length === 1 ? 'Answer' : 'Answers'}
         </h2>
 
         <div className="space-y-4">
-          {question.answers.map((answer) => (
+          {/* ✅ Accepted answer always comes first */}
+          {acceptedAnswer && (
+            <AnswerCard
+              key={acceptedAnswer.id}
+              answer={acceptedAnswer}
+              questionId={question.id}
+              isQuestionOwner={isQuestionOwner}
+            />
+          )}
+          {otherAnswers.map(answer => (
             <AnswerCard
               key={answer.id}
               answer={answer}
@@ -114,19 +127,17 @@ const QuestionDetailPage = () => {
         </div>
       </div>
 
-      {/* Add Answer Form */}
+      {/* Submit Answer */}
       <div className="bg-white rounded-lg shadow-sm border p-6">
         <h3 className="text-xl font-semibold text-gray-900 mb-4">Your Answer</h3>
-
         <form onSubmit={handleSubmitAnswer}>
           <div className="mb-4">
             <RichTextEditor
-              isReadOnly = {false}
+              isReadOnly={false}
               data={answerContent}
               onChange={setAnswerContent}
             />
           </div>
-
           <div className="flex justify-end">
             <button
               type="submit"
@@ -143,7 +154,7 @@ const QuestionDetailPage = () => {
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default QuestionDetailPage;
+export default QuestionDetailPage
