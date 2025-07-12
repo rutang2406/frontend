@@ -1,11 +1,56 @@
+// LoginModalDemo.jsx
 import React, { useState } from 'react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from './DialogContent'
-import { Button } from './Button'
-import { Input } from './Input'
-import { Label } from './Label'
-import { Eye, EyeOff, UserCheck, Lock, Mail } from 'lucide-react'
+import { Eye, EyeOff, UserCheck, Lock, Mail, X } from 'lucide-react'
 
-const LoginModal = ({ isOpen, onClose, onSignUpClick }) => {
+// Dialog components
+function Dialog({ open, children }) {
+  if (!open) return null
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div className="fixed inset-0 bg-black/30" />
+      <div className="relative z-10">{children}</div>
+    </div>
+  )
+}
+function DialogContent({ className = '', children }) {
+  return (
+    <div className={`bg-white rounded-lg shadow-lg p-6 w-1/2 sm:max-w-md w-full mx-4 relative ${className}`}>
+      {children}
+    </div>
+  )
+}
+function DialogHeader({ children }) {
+  return <div className="mb-4">{children}</div>
+}
+function DialogTitle({ className = '', children }) {
+  return <h2 className={`font-semibold ${className}`}>{children}</h2>
+}
+
+// Form components
+function Button({ className = '', ...props }) {
+  return (
+    <button
+      {...props}
+      className={`rounded px-4 py-2 font-semibold transition-colors disabled:opacity-60 ${className}`}
+    />
+  )
+}
+function Input(props) {
+  return (
+    <input
+      {...props}
+      className={`border rounded px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500 ${props.className || ''}`}
+    />
+  )
+}
+function Label({ className = '', ...props }) {
+  return (
+    <label {...props} className={`block text-sm font-medium ${className}`} />
+  )
+}
+
+// LoginModal
+function LoginModal({ isOpen, onClose, onSignUpClick }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -16,11 +61,8 @@ const LoginModal = ({ isOpen, onClose, onSignUpClick }) => {
     e.preventDefault()
     setIsLoading(true)
     setError('')
-
     try {
-      // Add your login logic here
-      await new Promise(resolve => setTimeout(resolve, 1000)) // Simulate API call
-      console.log('Login attempt:', { email, password })
+      await new Promise(resolve => setTimeout(resolve, 1000))
       onClose()
       setEmail('')
       setPassword('')
@@ -30,7 +72,6 @@ const LoginModal = ({ isOpen, onClose, onSignUpClick }) => {
       setIsLoading(false)
     }
   }
-
   const handleSignUpClick = (e) => {
     e.preventDefault()
     onClose()
@@ -38,15 +79,23 @@ const LoginModal = ({ isOpen, onClose, onSignUpClick }) => {
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
+    <Dialog open={isOpen}>
+      <DialogContent>
+        {/* Close Icon */}
+        <button
+          type="button"
+          aria-label="Close"
+          onClick={onClose}
+          className="absolute right-4 top-4 text-gray-400 hover:text-gray-600 transition-colors"
+        >
+          <X className="w-5 h-5" />
+        </button>
         <DialogHeader>
           <DialogTitle className="text-center text-xl flex items-center justify-center gap-2">
             <UserCheck className="h-6 w-6 text-blue-600" />
             <span>Welcome Back</span>
           </DialogTitle>
         </DialogHeader>
-
         <form onSubmit={handleSubmit} className="space-y-4 pt-4">
           <div className="space-y-2">
             <Label htmlFor="email" className="flex items-center gap-2">
@@ -63,7 +112,6 @@ const LoginModal = ({ isOpen, onClose, onSignUpClick }) => {
               className="w-full"
             />
           </div>
-
           <div className="space-y-2">
             <Label htmlFor="password" className="flex items-center gap-2">
               <Lock className="h-4 w-4" />
@@ -92,13 +140,11 @@ const LoginModal = ({ isOpen, onClose, onSignUpClick }) => {
               </button>
             </div>
           </div>
-
           {error && (
             <div className="text-sm text-red-600 bg-red-50 p-3 rounded-md">
               {error}
             </div>
           )}
-
           <Button
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white"
@@ -106,9 +152,8 @@ const LoginModal = ({ isOpen, onClose, onSignUpClick }) => {
           >
             {isLoading ? 'Signing in...' : 'Sign In'}
           </Button>
-
           <p className="text-sm text-gray-600 text-center">
-            New to our platform? {' '}
+            New to our platform?{' '}
             <button
               type="button"
               onClick={handleSignUpClick}
@@ -122,5 +167,7 @@ const LoginModal = ({ isOpen, onClose, onSignUpClick }) => {
     </Dialog>
   )
 }
+
+
 
 export default LoginModal
