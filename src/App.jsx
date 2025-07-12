@@ -7,6 +7,8 @@ import AskQuestionPage from './pages/AskQuestionPage'
 import QuestionDetailPage from './pages/QuestionDetailPage'
 import ProfilePage from './pages/ProfilePage'
 
+
+export const backendurl = import.meta.env.VITE_BACKEND_URL;
 function App() {
   return (
     <QAProvider>
