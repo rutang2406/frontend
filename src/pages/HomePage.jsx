@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import React from 'react'
 // import { useQA } from '../context/QAContext'
 // import QuestionCard from '../components/QuestionCard'
@@ -85,6 +86,8 @@ import { Link } from "react-router-dom"
 import { MessageSquare, Users, HelpCircle, TrendingUp, UserCircle, Filter } from "lucide-react"
 import { Button } from "../components/Button"
 import { Card, CardContent } from "../components/Card"
+=======
+>>>>>>> 4027ced6a9912b991b8cefd5110a21fb85f9caac
 import { useQA } from '../context/QAContext'
 import QuestionCard from '../components/QuestionCard'
 import LoginModal from '../components/LoginModal'
